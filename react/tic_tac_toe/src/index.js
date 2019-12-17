@@ -93,7 +93,12 @@ class Game extends React.Component { // Application全体を管理しているCo
     const current = history[this.state.stepNumber]; // 現在の状態のsquareを表す定数を定義
     const winner = calculateWinner(current.squares); // 現在の状態のsquareを入力して，どちらかが勝利しているかどうかを判定して，その状態を定数として保持
 
-    const moves = history.map((step, move) => { // Gameの状態を飛ぶためのボタンのリストのコンポーネントを作成
+    history.map((step, move) => { // なぜmoveとstepがあるんだ？？？ // history = [ { squares : Array }, ...,  { squares: Array } ] というdictを要素とするlistではないのか？？？
+      console.log('step: ');
+      console.log(step);
+      console.log('move: ' + move);
+    });
+    const moves = history.map((step, move) => { // Gameの状態を飛ぶためのボタンのリストのコンポーネントを作成 // stepとmoveを引数として，moveに応じてbuttonのstringを生成，生成したstring (desc)を用いてボタンのリストを生成 // stepとmoveという引数はどこからきているんだ？？？
       const desc = move ? // 三項演算子 ( condition ? True : False ) // moveがTrueなら，状態を戻すためのボタンの文字列を生成，Falseなら，最初に戻すためのボタンの文字列を生成
         'Go to move #' + move :
         'Go to game start';
