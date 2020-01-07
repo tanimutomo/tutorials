@@ -1,16 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import './App.scss';
+import {Board} from './Board'
+import {GameCell} from './utils'
 
 
 // props => 親から渡される情報
 // state => 自身の状態を管理するための値
-
-enum GameCell {
-  EMPTY = "-",
-  O = "O",
-  X = "X"
-}
 
 interface GameHistory {
   squares: GameCell[];
@@ -105,58 +100,6 @@ export class Game extends React.Component<{}, GameS> { // Application全体を�
     );
   }
 }
-
-
-interface BoardP {
-  squares: GameCell[];
-  onClick: (i: number) => void;
-}
-
-
-class Board extends React.Component<BoardP, {}> { // クラスコンポーネント // 3x3のボードを定義している // 親はGame Component // Gameからは <Board squares, onClick>として渡されているので，propsはsquaresと，onClickを保持している
-  renderSquare(i: number) { // 定義されたものはthis.renderSquareで呼び出せる
-    return (
-      <Square // Squareという関数コンポーネントをcall // squareには，propsとしてvalue, onClickを渡している
-        value={this.props.squares[i]} // Gameから渡されるsquaresのi番目の値を表示
-        onClick={() => this.props.onClick(i)} // Gameから渡されたonClickをiを引数としてcall
-      />
-    );
-  }
-
-  render() { // <Board ...>とされた時に呼び出されるもの
-    return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)} {/* renderSquare経由で，Squareをcallしてマスを描画 */}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
-  }
-}
-
-
-const Square: React.FC<{ onClick: () => void, value: GameCell  }> = (props) => { // それぞれのマス目を関数で記述（関数だけど，returnでhtmlをかけるのか） // 関数コンポーネント // ここでのpropsはただの引数 return ( // 関数コンポーネントは，呼ばれた無条件に，returnしてhtmlを返す（クラスでいうrender methodに対応）
-  return (
-    <button
-      className="square" // class for jsx
-      onClick={props.onClick} // 受け取ったpropsのonClick methodをcall
-    >
-      {props.value}
-    </button> // 受け取ったpropsのvalueが表示名になる
-  )
-};
 
 
 function calculateWinner(squares: GameCell[]) { // これはただのjsのfunction???
