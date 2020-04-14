@@ -1,0 +1,7 @@
+db:
+  driver: mysql
+  user: omry
+  pass:  secret
+  hobby:
+    - soccer
+    - piano
